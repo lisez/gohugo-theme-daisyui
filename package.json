@@ -1,0 +1,15 @@
+{
+  "name": "gohugo-theme-daisyui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lisez/gohugo-theme-daisyui.git",
+  "author": "lisez <mm4324@gmail.com>",
+  "license": "MIT",
+  "scripts": {},
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.2",
+    "daisyui": "^2.0.9",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.23"
+  }
+}

@@ -1,14 +1,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {{ if os.FileExists "assets/sass/main.scss" }} {{ $style := resources.Get
-  "sass/main.scss" | toCSS | minify | fingerprint }}
+  {{ $template := resources.Get "sass/main.scss" }} {{ $style := $template |
+  resources.ExecuteAsTemplate "main.scss" . | toCSS | postCSS (dict "config"
+  "postcss.config.js") | fingerprint | resources.PostProcess }}
   <link
     rel="stylesheet"
-    href="{{ $style.Permalink }}"
+    href="{{ $style.RelPermalink }}"
     integrity="{{ $style.Data.Integrity }}"
   />
-  {{end}} {{ $title := print .Site.Title " | " .Title }} {{ if .IsHome }}{{
+
+  {{ range .Site.Params.CustomCSS }} {{ $style := . | postCSS | minify |
+  fingerprint }}
+  <link
+    rel="stylesheet"
+    href="{{ $style.RelPermalink }}"
+    integrity="{{ $style.Data.Integrity  }}"
+  />
+  {{ end }} {{ $title := print .Site.Title " | " .Title }} {{ if .IsHome }}{{
   $title = .Site.Title }}{{ end }}
   <title>{{ $title }}</title>
 </head>

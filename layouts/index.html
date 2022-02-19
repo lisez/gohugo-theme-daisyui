@@ -1,3 +1,36 @@
 {{ define "main" }}
-<h1 class="title">{{ .Site.Title }}</h1>
+<div class="hero min-h-screen pb-8">
+  <div class="text-center hero-content min-w-[80%] flex-col">
+    <section class="max-w-md">
+      <h1 class="text-7xl font-bold">{{ .Site.Params.homePageTitle }}</h1>
+      <p class="py-6">{{ .Site.Params.homePageSubTitle | safeHTML }}</p>
+
+      <div class="tabs justify-center">
+        {{ range .Site.Params.homePageLinks }}
+        <a class="tab" href="{{- .url }}">{{- .name}}</a>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="divider min-w-full"></div>
+
+<section>
+  <h2 class="text-2xl font-bold">Recently</h2>
+  <ul class="space-y-10">
+    {{ range first 10 $.Site.RegularPages }}
+    <li class="flex flex-col text-left space-y-2">
+      <time class="text-xs mark-block">{{ .Date.Format "2006-01-02" }}</time>
+      <h3 class="text-2xl">
+        <a
+          class="border-b-4 pb-2 border-info-content hover:border-primary-content"
+          href="{{ .Permalink }}"
+          >{{ .Title }}</a
+        >
+      </h3>
+    </li>
+    {{ end }}
+  </ul>
+</section>
 {{ end }}
